@@ -24,6 +24,10 @@ MEDIA_URL = '/media/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
+#enables browser length sessions
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True 
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'icmb#qm(k@ol=l=#-s)xvt+q)#vuw@*u%sjx#_7!0$&d2wey+x'
 
@@ -47,7 +51,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
+    #session cookies
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.models.Session',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
