@@ -36,22 +36,15 @@ def populate():
     cats = {"Python": {"pages": python_pages, "views": 128, "likes": 64},
             "Django": {"pages": django_pages, "views": 64, "likes": 32},
             "Other Frameworks": {"pages": other_pages, "views": 32, "likes": 16},
+            "Pascal": {"pages": [], "views": 32, "likes": 16},
             } 
     
-    # If you want to add more catergories or pages,
-    # add them to the dictionaries above.
-    # The code below goes through the cats dictionary, then adds each category,
-    # and then adds all the associated pages for that category.
-    # if you are using Python 2.x then use cats.iteritems() see
-    # http://docs.quantifiedcode.com/python-anti-patterns/readability/
-    # for more information about how to iterate over a dictionary properly.
-
     for cat, cat_data in cats.items():
         c = add_cat(cat, cat_data["views"], cat_data["likes"])
         for p in cat_data["pages"]:
             add_page(c, p["title"], p["url"], views=p["views"])
     
-    # Print out the categories we have added.
+   
     for c in Category.objects.all():
         for p in Page.objects.filter(category=c):
             print("- {0} - {1}".format(str(c), str(p)))

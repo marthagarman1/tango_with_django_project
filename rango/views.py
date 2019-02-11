@@ -69,6 +69,7 @@ def show_category(request, category_name_slug):
     # Go render the response and return it to the client.
     return render(request, 'rango/category.html', context_dict)
 
+@login_required
 def add_category(request):
     form = CategoryForm()
     # A HTTP POST?
@@ -78,11 +79,8 @@ def add_category(request):
         # Have we been provided with a valid form?
         if form.is_valid():
             # Save the new category to the database. 
-            form.save(commit=True)
-            # Now that the category is saved
-            # We could give a confirmation message
-            # But since the most recent category added is on the index page 
-            # Then we can direct the user back to the index page.
+            cat=form.save(commit=True)
+            print(cat, cat.slug)
             return index(request)
         else:
             # The supplied form contained errors - 
@@ -92,7 +90,7 @@ def add_category(request):
     # Render the form with error messages (if any).
     return render(request, 'rango/add_category.html', {'form': form})
 
-
+@login_required
 def add_page(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
